@@ -11,14 +11,9 @@ import { createProduct, updateProduct } from '@/app/(dashboard)/products/actions
 const schema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
   description: z.string(),
-  price: z.coerce
-    .number({ error: 'Ingresa un precio válido' })
-    .positive('El precio debe ser mayor a 0'),
+  price: z.number().positive('El precio debe ser mayor a 0'),
   unit: z.string().min(1, 'Selecciona una unidad'),
-  stock: z.preprocess(
-    (v) => (v === '' || v === null || v === undefined ? null : Number(v)),
-    z.number().int().min(0, 'El stock no puede ser negativo').nullable()
-  ),
+  stock: z.number().int().min(0, 'El stock no puede ser negativo').nullable(),
   active: z.boolean(),
 })
 
@@ -101,7 +96,7 @@ export default function ProductForm({ product }: { product?: Product }) {
               $
             </span>
             <input
-              {...register('price')}
+              {...register('price', { valueAsNumber: true })}
               type="number"
               step="0.01"
               min="0"
@@ -137,7 +132,7 @@ export default function ProductForm({ product }: { product?: Product }) {
           Stock (opcional)
         </label>
         <input
-          {...register('stock')}
+          {...register('stock', { setValueAs: (v: string) => v === '' ? null : parseInt(v, 10) })}
           type="number"
           min="0"
           placeholder="Dejar vacío si no aplica"
