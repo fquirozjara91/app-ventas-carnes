@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { revalidatePath } from 'next/cache'
 
 export type ProductFormData = {
+  code: number
   name: string
   description: string
   price: number
@@ -17,6 +18,7 @@ export type ActionResult = { error?: string }
 export async function createProduct(data: ProductFormData): Promise<ActionResult> {
   const supabase = await createClient()
   const { error } = await supabase.from('products').insert({
+    code: data.code,
     name: data.name,
     description: data.description || null,
     price: data.price,
@@ -34,6 +36,7 @@ export async function updateProduct(id: string, data: ProductFormData): Promise<
   const { error } = await supabase
     .from('products')
     .update({
+      code: data.code,
       name: data.name,
       description: data.description || null,
       price: data.price,

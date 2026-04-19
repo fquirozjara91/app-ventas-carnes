@@ -5,6 +5,8 @@ import { revalidatePath } from 'next/cache'
 
 export type CustomerFormData = {
   name: string
+  rut: number | null
+  dv: string | null
   phone: string
   address: string
   notes: string
@@ -16,6 +18,8 @@ export async function createCustomer(data: CustomerFormData): Promise<ActionResu
   const supabase = await createClient()
   const { error } = await supabase.from('customers').insert({
     name: data.name,
+    rut: data.rut,
+    dv: data.dv,
     phone: data.phone || null,
     address: data.address || null,
     notes: data.notes || null,
@@ -31,6 +35,8 @@ export async function updateCustomer(id: string, data: CustomerFormData): Promis
     .from('customers')
     .update({
       name: data.name,
+      rut: data.rut,
+      dv: data.dv,
       phone: data.phone || null,
       address: data.address || null,
       notes: data.notes || null,

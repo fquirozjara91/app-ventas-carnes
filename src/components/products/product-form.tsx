@@ -9,6 +9,7 @@ import type { Product } from '@/types'
 import { createProduct, updateProduct } from '@/app/(dashboard)/products/actions'
 
 const schema = z.object({
+  code: z.number({ error: 'El código es requerido' }).int().positive('El código debe ser un número positivo'),
   name: z.string().min(1, 'El nombre es requerido'),
   description: z.string(),
   price: z.number().positive('El precio debe ser mayor a 0'),
@@ -33,6 +34,7 @@ export default function ProductForm({ product }: { product?: Product }) {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
+      code: product?.code ?? undefined,
       name: product?.name ?? '',
       description: product?.description ?? '',
       price: product?.price,
@@ -59,6 +61,21 @@ export default function ProductForm({ product }: { product?: Product }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 w-full max-w-lg">
+      {/* Código */}
+      <div>
+        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+          Código *
+        </label>
+        <input
+          {...register('code', { valueAsNumber: true })}
+          type="number"
+          min="1"
+          placeholder="Ej: 101"
+          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+        />
+        {errors.code && <p className="text-red-500 text-xs mt-1">{errors.code.message}</p>}
+      </div>
+
       {/* Nombre */}
       <div>
         <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">

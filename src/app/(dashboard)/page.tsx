@@ -23,7 +23,10 @@ export default async function DashboardPage() {
         </h1>
         <p className="text-zinc-500 text-sm mt-1">{user?.email}</p>
       </div>
-
+      {/* Aviso */}
+      <p className="mt-5 text-zinc-400 text-xs uppercase tracking-widest">
+        Módulos disponibles: usa el menú lateral para navegar a Productos y Clientes.
+      </p>
       {/* Cards de acceso rápido */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Nuevo Pedido — bloqueado */}
@@ -66,10 +69,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      {/* Aviso */}
-      <p className="mt-5 text-zinc-400 text-xs uppercase tracking-widest">
-        Módulos disponibles: usa el menú lateral para navegar a Productos y Clientes.
-      </p>
+      
     </div>
   )
 }

@@ -8,7 +8,38 @@ import { useState } from 'react'
 import type { Customer } from '@/types'
 import { createCustomer, updateCustomer } from '@/app/(dashboard)/customers/actions'
 
+function validateChileanRut(rutStr: string): boolean {
+  const parts = rutStr.split('-')
+  if (parts.length !== 2) return false
+  const [body, dv] = parts
+  if (!dv || dv.length !== 1) return false
+  const num = parseInt(body, 10)
+  if (isNaN(num) || num <= 0) return false
+
+  let sum = 0
+  let multiplier = 2
+  let temp = num
+  while (temp > 0) {
+    sum += (temp % 10) * multiplier
+    temp = Math.floor(temp / 10)
+    multiplier = multiplier === 7 ? 2 : multiplier + 1
+  }
+  const remainder = 11 - (sum % 11)
+  const calculated = remainder === 11 ? '0' : remainder === 10 ? 'K' : remainder.toString()
+  return calculated.toUpperCase() === dv.toUpperCase()
+}
+
 const schema = z.object({
+  rut: z
+    .string()
+    .refine(
+      (v) => v === '' || /^\d{7,8}-[\dKk]$/.test(v),
+      'Formato inválido. Ejemplo: 12345678-9'
+    )
+    .refine(
+      (v) => v === '' || validateChileanRut(v),
+      'El RUT ingresado no es válido'
+    ),
   name: z.string().min(1, 'El nombre es requerido'),
   phone: z.string(),
   address: z.string(),
@@ -16,6 +47,11 @@ const schema = z.object({
 })
 
 type FormData = z.infer<typeof schema>
+
+function rutToString(rut: number | null, dv: string | null): string {
+  if (!rut || !dv) return ''
+  return `${rut}-${dv}`
+}
 
 export default function CustomerForm({ customer }: { customer?: Customer }) {
   const router = useRouter()
@@ -29,6 +65,7 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
+      rut: rutToString(customer?.rut ?? null, customer?.dv ?? null),
       name: customer?.name ?? '',
       phone: customer?.phone ?? '',
       address: customer?.address ?? '',
@@ -38,9 +75,16 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
 
   const onSubmit = async (data: FormData) => {
     setServerError('')
+
+    let rutParsed: { rut: number | null; dv: string | null } = { rut: null, dv: null }
+    if (data.rut) {
+      const [body, dv] = data.rut.split('-')
+      rutParsed = { rut: parseInt(body, 10), dv: dv.toUpperCase() }
+    }
+
     const result = isEdit
-      ? await updateCustomer(customer.id, data)
-      : await createCustomer(data)
+      ? await updateCustomer(customer.id, { ...data, ...rutParsed })
+      : await createCustomer({ ...data, ...rutParsed })
 
     if (result.error) {
       setServerError(result.error)
@@ -52,6 +96,23 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 w-full max-w-lg">
+      {/* RUT */}
+      <div>
+        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+          RUT
+        </label>
+        <input
+          {...register('rut')}
+          placeholder="12345678-9"
+          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+        />
+        {errors.rut ? (
+          <p className="text-red-500 text-xs mt-1">{errors.rut.message}</p>
+        ) : (
+          <p className="text-zinc-400 text-xs mt-1">Sin puntos, con guión. Ej: 12345678-9</p>
+        )}
+      </div>
+
       {/* Nombre */}
       <div>
         <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
