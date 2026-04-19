@@ -1,17 +1,19 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import ProductActions from './_components/product-actions'
+import ProductFilters from './_components/product-filters'
 
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>
+  searchParams: Promise<{ q?: string; unit?: string }>
 }) {
-  const { q } = await searchParams
+  const { q = '', unit = '' } = await searchParams
   const supabase = await createClient()
 
-  let query = supabase.from('products').select('*').order('name')
+  let query = supabase.from('products').select('*').order('code', { ascending: true, nullsFirst: false })
   if (q) query = query.ilike('name', `%${q}%`)
+  if (unit) query = query.eq('unit', unit)
 
   const { data: products } = await query
 
@@ -31,15 +33,7 @@ export default async function ProductsPage({
         </Link>
       </div>
 
-      {/* Búsqueda */}
-      <form className="mb-6">
-        <input
-          name="q"
-          defaultValue={q}
-          placeholder="Buscar producto..."
-          className="w-full max-w-sm bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
-        />
-      </form>
+      <ProductFilters q={q} unit={unit} />
 
       {/* Lista */}
       {products && products.length > 0 ? (
@@ -49,9 +43,13 @@ export default async function ProductsPage({
               key={product.id}
               className="bg-white border border-zinc-200 px-4 py-3 flex items-center gap-3"
             >
-              {/* Info principal */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
+                  {product.code != null && (
+                    <span className="font-mono text-xs font-bold text-zinc-400 bg-zinc-100 px-1.5 py-0.5">
+                      #{product.code}
+                    </span>
+                  )}
                   <p className="font-semibold text-zinc-900 text-sm">{product.name}</p>
                   <span
                     className={`inline-block px-2 py-0.5 text-xs font-bold uppercase tracking-wide ${
@@ -76,7 +74,6 @@ export default async function ProductsPage({
                 </p>
               </div>
 
-              {/* Acciones */}
               <ProductActions
                 id={product.id}
                 active={product.active}
@@ -88,9 +85,9 @@ export default async function ProductsPage({
       ) : (
         <div className="bg-white border border-zinc-200 p-12 text-center">
           <p className="text-zinc-400 font-medium">
-            {q ? `Sin resultados para "${q}"` : 'No hay productos aún'}
+            {q || unit ? 'Sin resultados para los filtros aplicados' : 'No hay productos aún'}
           </p>
-          {!q && (
+          {!q && !unit && (
             <Link
               href="/products/new"
               className="inline-block mt-4 text-red-600 hover:text-red-500 text-sm font-bold uppercase tracking-widest"

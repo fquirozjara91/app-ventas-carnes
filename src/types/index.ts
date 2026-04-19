@@ -2,6 +2,7 @@
 
 export type Product = {
   id: string
+  code: number | null
   name: string
   description: string | null
   price: number
@@ -15,6 +16,8 @@ export type Product = {
 export type Customer = {
   id: string
   name: string
+  rut: number | null
+  dv: string | null
   phone: string | null
   address: string | null
   notes: string | null

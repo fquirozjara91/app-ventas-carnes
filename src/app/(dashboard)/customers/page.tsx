@@ -52,7 +52,14 @@ export default async function CustomersPage({
               className="bg-white border border-zinc-200 px-4 py-3 flex items-center gap-3"
             >
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-zinc-900 text-sm">{customer.name}</p>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <p className="font-semibold text-zinc-900 text-sm">{customer.name}</p>
+                  {customer.rut && customer.dv && (
+                    <span className="font-mono text-xs text-zinc-400 bg-zinc-100 px-1.5 py-0.5">
+                      {customer.rut.toLocaleString('es-CL')}-{customer.dv}
+                    </span>
+                  )}
+                </div>
                 <div className="flex flex-wrap gap-x-3 mt-0.5">
                   {customer.phone && (
                     <p className="text-zinc-400 text-xs">{customer.phone}</p>
