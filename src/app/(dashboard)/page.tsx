@@ -26,51 +26,50 @@ export default async function DashboardPage() {
 
       {/* Cards de acceso rápido */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <a
-          href="/orders/new"
-          className="group bg-red-600 hover:bg-red-500 transition-colors p-6 flex flex-col gap-4"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        {/* Nuevo Pedido — bloqueado */}
+        <div className="relative bg-zinc-800 p-6 flex flex-col gap-4 opacity-50 cursor-not-allowed select-none">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="12" cy="12" r="10" />
             <line x1="12" y1="8" x2="12" y2="16" />
             <line x1="8" y1="12" x2="16" y2="12" />
           </svg>
           <div>
-            <p className="text-white font-black text-lg uppercase tracking-tight">Nuevo Pedido</p>
-            <p className="text-red-200 text-sm mt-0.5">Registrar venta rápida</p>
+            <p className="text-zinc-400 font-black text-lg uppercase tracking-tight">Nuevo Pedido</p>
+            <p className="text-zinc-600 text-sm mt-0.5">Usa el menú lateral</p>
           </div>
-        </a>
+        </div>
 
-        <a
-          href="/orders"
-          className="group bg-white hover:bg-zinc-50 border border-zinc-200 transition-colors p-6 flex flex-col gap-4"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        {/* Pedidos del Día — bloqueado */}
+        <div className="relative bg-white border border-zinc-200 p-6 flex flex-col gap-4 opacity-50 cursor-not-allowed select-none">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 11l3 3L22 4" />
             <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
           </svg>
           <div>
-            <p className="text-zinc-900 font-black text-lg uppercase tracking-tight">Pedidos del Día</p>
-            <p className="text-zinc-500 text-sm mt-0.5">Ver y gestionar pedidos</p>
+            <p className="text-zinc-400 font-black text-lg uppercase tracking-tight">Pedidos del Día</p>
+            <p className="text-zinc-400 text-sm mt-0.5">Usa el menú lateral</p>
           </div>
-        </a>
+        </div>
 
-        <a
-          href="/reports"
-          className="group bg-white hover:bg-zinc-50 border border-zinc-200 transition-colors p-6 flex flex-col gap-4"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-zinc-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        {/* Exportar — bloqueado */}
+        <div className="relative bg-white border border-zinc-200 p-6 flex flex-col gap-4 opacity-50 cursor-not-allowed select-none">
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
             <polyline points="14 2 14 8 20 8" />
             <line x1="16" y1="13" x2="8" y2="13" />
             <line x1="16" y1="17" x2="8" y2="17" />
           </svg>
           <div>
-            <p className="text-zinc-900 font-black text-lg uppercase tracking-tight">Exportar</p>
-            <p className="text-zinc-500 text-sm mt-0.5">Descargar resumen en Excel</p>
+            <p className="text-zinc-400 font-black text-lg uppercase tracking-tight">Exportar</p>
+            <p className="text-zinc-400 text-sm mt-0.5">Usa el menú lateral</p>
           </div>
-        </a>
+        </div>
       </div>
+
+      {/* Aviso */}
+      <p className="mt-5 text-zinc-400 text-xs uppercase tracking-widest">
+        Módulos disponibles: usa el menú lateral para navegar a Productos y Clientes.
+      </p>
     </div>
   )
 }

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
-const navItems = [
+const navItems: { label: string; href: string; disabled?: boolean; icon: React.ReactNode }[] = [
   {
     label: 'Inicio',
     href: '/',
@@ -18,6 +18,7 @@ const navItems = [
   {
     label: 'Pedidos',
     href: '/orders',
+    disabled: true,
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M9 11l3 3L22 4" />
@@ -51,6 +52,7 @@ const navItems = [
   {
     label: 'Reportes',
     href: '/reports',
+    disabled: true,
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -97,6 +99,24 @@ export default function DashboardNav() {
             item.href === '/'
               ? pathname === '/'
               : pathname.startsWith(item.href)
+
+          if (item.disabled) {
+            return (
+              <span
+                key={item.href}
+                title="Próximamente"
+                className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-sm opacity-35 cursor-not-allowed select-none"
+              >
+                {item.icon}
+                <span className="hidden md:flex md:flex-1 md:items-center md:justify-between">
+                  {item.label}
+                  <span className="text-[9px] font-bold uppercase tracking-widest bg-zinc-700 text-zinc-400 px-1.5 py-0.5">
+                    Pronto
+                  </span>
+                </span>
+              </span>
+            )
+          }
 
           return (
             <Link
