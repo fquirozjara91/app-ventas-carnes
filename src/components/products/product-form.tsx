@@ -63,7 +63,7 @@ export default function ProductForm({ product }: { product?: Product }) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 w-full max-w-lg">
       {/* Código */}
       <div>
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
           Código *
         </label>
         <input
@@ -71,41 +71,41 @@ export default function ProductForm({ product }: { product?: Product }) {
           type="number"
           min="1"
           placeholder="Ej: 101"
-          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
         />
         {errors.code && <p className="text-red-500 text-xs mt-1">{errors.code.message}</p>}
       </div>
 
       {/* Nombre */}
       <div>
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
           Nombre *
         </label>
         <input
           {...register('name')}
           placeholder="Ej: Lomo vetado"
-          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
         />
         {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
       </div>
 
       {/* Descripción */}
       <div>
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
           Descripción
         </label>
         <textarea
           {...register('description')}
           placeholder="Descripción opcional"
           rows={2}
-          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors resize-none"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors resize-none"
         />
       </div>
 
       {/* Precio + Unidad */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+          <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
             Precio *
           </label>
           <div className="relative">
@@ -118,19 +118,19 @@ export default function ProductForm({ product }: { product?: Product }) {
               step="0.01"
               min="0"
               placeholder="0.00"
-              className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 pl-7 pr-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+              className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 pl-7 pr-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
             />
           </div>
           {errors.price && <p className="text-red-500 text-xs mt-1">{errors.price.message}</p>}
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+          <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
             Unidad *
           </label>
           <select
             {...register('unit')}
-            className="w-full bg-white border border-zinc-300 text-zinc-900 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+            className="w-full bg-white border border-slate-300 text-slate-900 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
           >
             <option value="">Seleccionar...</option>
             {UNITS.map((u) => (
@@ -145,7 +145,7 @@ export default function ProductForm({ product }: { product?: Product }) {
 
       {/* Stock */}
       <div>
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
           Stock (opcional)
         </label>
         <input
@@ -153,7 +153,7 @@ export default function ProductForm({ product }: { product?: Product }) {
           type="number"
           min="0"
           placeholder="Dejar vacío si no aplica"
-          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
         />
         {errors.stock && <p className="text-red-500 text-xs mt-1">{errors.stock.message}</p>}
       </div>
@@ -164,7 +164,7 @@ export default function ProductForm({ product }: { product?: Product }) {
           {...register('active')}
           type="checkbox"
           id="active"
-          className="w-4 h-4 accent-red-600"
+          className="w-4 h-4 accent-indigo-600"
         />
         <label htmlFor="active" className="text-sm font-medium text-zinc-700 cursor-pointer">
           Producto activo (visible al crear pedidos)
@@ -183,14 +183,14 @@ export default function ProductForm({ product }: { product?: Product }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-red-600 hover:bg-red-500 disabled:bg-zinc-300 disabled:text-zinc-500 text-white font-bold py-2.5 px-6 uppercase tracking-widest text-sm transition-colors"
+          className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold py-2.5 px-6 uppercase tracking-widest text-sm transition-colors"
         >
           {isSubmitting ? 'Guardando...' : isEdit ? 'Guardar cambios' : 'Crear producto'}
         </button>
         <button
           type="button"
           onClick={() => router.back()}
-          className="bg-white border border-zinc-300 hover:bg-zinc-50 text-zinc-700 font-bold py-2.5 px-6 uppercase tracking-widest text-sm transition-colors"
+          className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold py-2.5 px-6 uppercase tracking-widest text-sm transition-colors"
         >
           Cancelar
         </button>

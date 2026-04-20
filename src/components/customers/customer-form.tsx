@@ -98,13 +98,13 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 w-full max-w-lg">
       {/* RUT */}
       <div>
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
           RUT
         </label>
         <input
           {...register('rut')}
           placeholder="12345678-9"
-          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
         />
         {errors.rut ? (
           <p className="text-red-500 text-xs mt-1">{errors.rut.message}</p>
@@ -115,52 +115,52 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
 
       {/* Nombre */}
       <div>
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
           Nombre *
         </label>
         <input
           {...register('name')}
           placeholder="Ej: Juan Pérez"
-          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
         />
         {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name.message}</p>}
       </div>
 
       {/* Teléfono */}
       <div>
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
           Teléfono
         </label>
         <input
           {...register('phone')}
           type="tel"
           placeholder="+56 9 1234 5678"
-          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
         />
       </div>
 
       {/* Dirección */}
       <div>
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
           Dirección
         </label>
         <input
           {...register('address')}
           placeholder="Ej: Av. Principal 123, Santiago"
-          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
         />
       </div>
 
       {/* Notas */}
       <div>
-        <label className="block text-xs font-bold text-zinc-500 uppercase tracking-widest mb-1.5">
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
           Notas
         </label>
         <textarea
           {...register('notes')}
           placeholder="Observaciones, preferencias, horarios de entrega..."
           rows={3}
-          className="w-full bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors resize-none"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors resize-none"
         />
       </div>
 
@@ -176,14 +176,14 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-red-600 hover:bg-red-500 disabled:bg-zinc-300 disabled:text-zinc-500 text-white font-bold py-2.5 px-6 uppercase tracking-widest text-sm transition-colors"
+          className="bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-200 disabled:text-slate-400 text-white font-bold py-2.5 px-6 uppercase tracking-widest text-sm transition-colors"
         >
           {isSubmitting ? 'Guardando...' : isEdit ? 'Guardar cambios' : 'Crear cliente'}
         </button>
         <button
           type="button"
           onClick={() => router.back()}
-          className="bg-white border border-zinc-300 hover:bg-zinc-50 text-zinc-700 font-bold py-2.5 px-6 uppercase tracking-widest text-sm transition-colors"
+          className="bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 font-bold py-2.5 px-6 uppercase tracking-widest text-sm transition-colors"
         >
           Cancelar
         </button>
