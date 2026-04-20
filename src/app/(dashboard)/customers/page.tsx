@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
 import CustomerActions from './_components/customer-actions'
+import CustomerFilters from './_components/customer-filters'
 
 export default async function CustomersPage({
   searchParams,
@@ -10,12 +11,19 @@ export default async function CustomersPage({
   const { q } = await searchParams
   const supabase = await createClient()
 
-  let query = supabase.from('customers').select('*').order('name')
-  if (q) {
-    query = query.or(`name.ilike.%${q}%,phone.ilike.%${q}%`)
-  }
+  const { data: all } = await supabase.from('customers').select('*').order('name')
 
-  const { data: customers } = await query
+  const customers = q
+    ? (all ?? []).filter((c) => {
+        const qLower = q.toLowerCase()
+        const numericQ = q.replace(/[.\-\s]/g, '')
+        return (
+          c.name.toLowerCase().includes(qLower) ||
+          (c.phone && c.phone.toLowerCase().includes(qLower)) ||
+          (c.rut && c.rut.toString().includes(numericQ))
+        )
+      })
+    : (all ?? [])
 
   return (
     <div className="p-6 md:p-10">
@@ -33,15 +41,7 @@ export default async function CustomersPage({
         </Link>
       </div>
 
-      {/* Búsqueda */}
-      <form className="mb-6">
-        <input
-          name="q"
-          defaultValue={q}
-          placeholder="Buscar por nombre o teléfono..."
-          className="w-full max-w-sm bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
-        />
-      </form>
+      <CustomerFilters q={q ?? ''} />
 
       {/* Lista */}
       {customers && customers.length > 0 ? (
