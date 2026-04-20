@@ -77,11 +77,11 @@ export default function DashboardNav() {
   }
 
   return (
-    <aside className="w-16 md:w-56 bg-zinc-950 flex flex-col min-h-screen shrink-0">
+    <aside className="w-16 md:w-56 bg-slate-900 flex flex-col min-h-screen shrink-0">
       {/* Logo */}
-      <div className="px-4 py-5 border-b border-zinc-800">
+      <div className="px-4 py-5 border-b border-slate-800">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-red-600 flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shrink-0">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 11l19-9-9 19-2-8-8-2z" />
             </svg>
@@ -105,12 +105,12 @@ export default function DashboardNav() {
               <span
                 key={item.href}
                 title="Próximamente"
-                className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-sm opacity-35 cursor-not-allowed select-none"
+                className="flex items-center gap-3 px-3 py-2.5 text-sm font-medium rounded-lg opacity-35 cursor-not-allowed select-none text-slate-400"
               >
                 {item.icon}
                 <span className="hidden md:flex md:flex-1 md:items-center md:justify-between">
                   {item.label}
-                  <span className="text-[9px] font-bold uppercase tracking-widest bg-zinc-700 text-zinc-400 px-1.5 py-0.5">
+                  <span className="text-[9px] font-bold uppercase tracking-widest bg-slate-700 text-slate-400 px-1.5 py-0.5 rounded">
                     Pronto
                   </span>
                 </span>
@@ -122,10 +122,10 @@ export default function DashboardNav() {
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors rounded-sm ${
+              className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors rounded-lg ${
                 isActive
-                  ? 'bg-red-600 text-white'
-                  : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
+                  ? 'bg-indigo-600 text-white'
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
               {item.icon}
@@ -136,10 +136,10 @@ export default function DashboardNav() {
       </nav>
 
       {/* Logout */}
-      <div className="p-2 border-t border-zinc-800">
+      <div className="p-2 border-t border-slate-800">
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-zinc-500 hover:text-white hover:bg-zinc-800 transition-colors rounded-sm"
+          className="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-500 hover:text-white hover:bg-slate-800 transition-colors rounded-lg"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />

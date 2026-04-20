@@ -24,14 +24,14 @@ export default async function EditCustomerPage({
       <div className="mb-8">
         <Link
           href="/customers"
-          className="text-zinc-400 hover:text-zinc-700 text-sm font-medium uppercase tracking-widest transition-colors"
+          className="text-slate-400 hover:text-slate-700 text-sm font-medium uppercase tracking-widest transition-colors"
         >
           ← Volver
         </Link>
-        <h1 className="text-3xl font-black text-zinc-900 uppercase tracking-tight mt-3">
+        <h1 className="text-3xl font-black text-slate-900 uppercase tracking-tight mt-3">
           Editar cliente
         </h1>
-        <p className="text-zinc-500 text-sm mt-1">{customer.name}</p>
+        <p className="text-slate-500 text-sm mt-1">{customer.name}</p>
       </div>
 
       <CustomerForm customer={customer} />

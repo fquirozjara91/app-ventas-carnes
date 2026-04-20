@@ -33,7 +33,7 @@ export default function ProductActions({ id, active, name }: Props) {
     <div className="flex items-center gap-1 justify-end">
       <a
         href={`/products/${id}`}
-        className="p-1.5 text-zinc-400 hover:text-zinc-700 transition-colors"
+        className="p-1.5 text-slate-400 hover:text-slate-700 transition-colors"
         title="Editar"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -46,7 +46,7 @@ export default function ProductActions({ id, active, name }: Props) {
         onClick={handleToggle}
         disabled={loading}
         title={active ? 'Desactivar' : 'Activar'}
-        className="p-1.5 text-zinc-400 hover:text-zinc-700 disabled:opacity-40 transition-colors"
+        className="p-1.5 text-slate-400 hover:text-slate-700 disabled:opacity-40 transition-colors"
       >
         {active ? (
           <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -65,7 +65,7 @@ export default function ProductActions({ id, active, name }: Props) {
         onClick={handleDelete}
         disabled={loading}
         title="Eliminar"
-        className="p-1.5 text-zinc-400 hover:text-red-600 disabled:opacity-40 transition-colors"
+        className="p-1.5 text-slate-400 hover:text-red-600 disabled:opacity-40 transition-colors"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="3 6 5 6 21 6" />

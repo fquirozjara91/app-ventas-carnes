@@ -10,6 +10,7 @@ export type CustomerFormData = {
   phone: string
   address: string
   notes: string
+  comuna: string
 }
 
 export type ActionResult = { error?: string }
@@ -23,6 +24,7 @@ export async function createCustomer(data: CustomerFormData): Promise<ActionResu
     phone: data.phone || null,
     address: data.address || null,
     notes: data.notes || null,
+    comuna: data.comuna || null,
   })
   if (error) return { error: error.message }
   revalidatePath('/customers')
@@ -40,6 +42,7 @@ export async function updateCustomer(id: string, data: CustomerFormData): Promis
       phone: data.phone || null,
       address: data.address || null,
       notes: data.notes || null,
+      comuna: data.comuna || null,
     })
     .eq('id', id)
   if (error) return { error: error.message }

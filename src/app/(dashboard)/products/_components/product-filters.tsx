@@ -41,13 +41,13 @@ export default function ProductFilters({ q: initialQ, unit: initialUnit }: Props
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Buscar producto..."
-        className="w-full sm:max-w-sm bg-white border border-zinc-300 text-zinc-900 placeholder-zinc-400 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+        className="w-full sm:max-w-sm bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
       />
 
       <select
         value={unit}
         onChange={(e) => handleUnitChange(e.target.value)}
-        className="bg-white border border-zinc-300 text-zinc-700 px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors"
+        className="bg-white border border-slate-300 text-slate-700 px-4 py-2.5 text-sm rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
       >
         <option value="">Todas las unidades</option>
         {UNITS.map((u) => (
