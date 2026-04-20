@@ -6,24 +6,30 @@ import CustomerFilters from './_components/customer-filters'
 export default async function CustomersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>
+  searchParams: Promise<{ q?: string; comuna?: string }>
 }) {
-  const { q } = await searchParams
+  const { q, comuna } = await searchParams
   const supabase = await createClient()
 
   const { data: all } = await supabase.from('customers').select('*').order('name')
 
-  const customers = q
-    ? (all ?? []).filter((c) => {
-        const qLower = q.toLowerCase()
-        const numericQ = q.replace(/[.\-\s]/g, '')
-        return (
-          c.name.toLowerCase().includes(qLower) ||
-          (c.phone && c.phone.toLowerCase().includes(qLower)) ||
-          (c.rut && c.rut.toString().includes(numericQ))
-        )
-      })
-    : (all ?? [])
+  const comunasExistentes = Array.from(
+    new Set((all ?? []).map((c) => c.comuna).filter(Boolean))
+  ).sort() as string[]
+
+  const customers = (all ?? []).filter((c) => {
+    if (comuna && c.comuna !== comuna) return false
+    if (q) {
+      const qLower = q.toLowerCase()
+      const numericQ = q.replace(/[.\-\s]/g, '')
+      return (
+        c.name.toLowerCase().includes(qLower) ||
+        (c.phone && c.phone.toLowerCase().includes(qLower)) ||
+        (c.rut && c.rut.toString().includes(numericQ))
+      )
+    }
+    return true
+  })
 
   return (
     <div className="p-6 md:p-10">
@@ -41,7 +47,7 @@ export default async function CustomersPage({
         </Link>
       </div>
 
-      <CustomerFilters q={q ?? ''} />
+      <CustomerFilters q={q ?? ''} comuna={comuna ?? ''} comunas={comunasExistentes} />
 
       {/* Lista */}
       {customers && customers.length > 0 ? (
@@ -63,6 +69,9 @@ export default async function CustomersPage({
                 <div className="flex flex-wrap gap-x-3 mt-0.5">
                   {customer.phone && (
                     <p className="text-slate-400 text-xs">{customer.phone}</p>
+                  )}
+                  {customer.comuna && (
+                    <p className="text-slate-400 text-xs">{customer.comuna}</p>
                   )}
                   {customer.address && (
                     <p className="text-slate-400 text-xs truncate">{customer.address}</p>

@@ -21,6 +21,7 @@ export type Customer = {
   phone: string | null
   address: string | null
   notes: string | null
+  comuna: string | null
   created_at: string
 }
 

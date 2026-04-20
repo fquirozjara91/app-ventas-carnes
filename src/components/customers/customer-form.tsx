@@ -29,6 +29,17 @@ function validateChileanRut(rutStr: string): boolean {
   return calculated.toUpperCase() === dv.toUpperCase()
 }
 
+const COMUNAS = [
+  'Santiago (Centro)', 'Cerrillos', 'Cerro Navia', 'Colina', 'Conchalí',
+  'El Bosque', 'Estación Central', 'Huechuraba', 'Independencia', 'Lampa',
+  'La Cisterna', 'La Florida', 'La Granja', 'La Pintana', 'La Reina',
+  'Las Condes', 'Lo Barnechea', 'Lo Espejo', 'Lo Prado', 'Macul', 'Maipú',
+  'Ñuñoa', 'Padre Hurtado', 'Pedro Aguirre Cerda', 'Peñalolén', 'Pirque',
+  'Providencia', 'Pudahuel', 'Puente Alto', 'Quilicura', 'Quinta Normal',
+  'Recoleta', 'Renca', 'San Bernardo', 'San Joaquín', 'San José de Maipo',
+  'San Miguel', 'San Ramón', 'Til Til', 'Vitacura',
+]
+
 const schema = z.object({
   rut: z
     .string()
@@ -43,6 +54,10 @@ const schema = z.object({
   name: z.string().min(1, 'El nombre es requerido'),
   phone: z.string(),
   address: z.string(),
+  comuna: z.string().refine(
+    (v) => v === '' || COMUNAS.includes(v),
+    'Selecciona una comuna válida de la lista'
+  ),
   notes: z.string(),
 })
 
@@ -69,6 +84,7 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
       name: customer?.name ?? '',
       phone: customer?.phone ?? '',
       address: customer?.address ?? '',
+      comuna: customer?.comuna ?? '',
       notes: customer?.notes ?? '',
     },
   })
@@ -149,6 +165,26 @@ export default function CustomerForm({ customer }: { customer?: Customer }) {
           placeholder="Ej: Av. Principal 123, Santiago"
           className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
         />
+      </div>
+
+      {/* Comuna */}
+      <div>
+        <label className="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-1.5">
+          Comuna
+        </label>
+        <input
+          {...register('comuna')}
+          list="comunas-list"
+          placeholder="Selecciona o escribe una comuna"
+          autoComplete="off"
+          className="w-full bg-white border border-slate-300 text-slate-900 placeholder-slate-400 px-4 py-2.5 text-sm rounded-lg focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+        />
+        <datalist id="comunas-list">
+          {COMUNAS.map((c) => <option key={c} value={c} />)}
+        </datalist>
+        {errors.comuna && (
+          <p className="text-red-500 text-xs mt-1">{errors.comuna.message}</p>
+        )}
       </div>
 
       {/* Notas */}
